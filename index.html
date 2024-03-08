@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Angular QR Code Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
@@ -13,20 +15,348 @@
               width : 100,
               height : 100
           });
-  
+          
           $scope.$watch('qrData', function(newVal, oldVal) {
               if (newVal !== oldVal) {
                   qrcode.makeCode(newVal);
               }
           });
+          // function for type-bar-inner
+            $scope.setTab = function(type) {
+                $scope.qrcode.type = type;
+            };
       });
   </script>
 </head>
-<body>
-    <div ng-app="qrApp" ng-controller="qrCtrl">
-        <input type="text" ng-model="qrData" placeholder="Enter data to generate QR Code">
-        <div id="qrcode"></div>
-    </div>
-</body>
 
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <span class="fs-4">QR CODE GENERATOR</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+          </ul>
+        </header>
+
+        <div _ngcontent-ng-c3250675358="" class="container">
+            <div _ngcontent-ng-c3250675358="" class="row">
+                <div _ngcontent-ng-c3250675358="" class="col-12 generator__main">
+                    <div _ngcontent-ng-c3250675358="" class="row">
+                        <div _ngcontent-ng-c3250675358="" class="col-xl-8 col-lg-8 generator-forms">
+                            <input _ngcontent-ng-c3250675358="" type="hidden" data-js="currentQrCodeType" value="start-dynamic" data-gtm-qrcode-type="start-dynamic" data-gaconnector-tracked="true">
+                            <div _ngcontent-ng-c3250675358="" class="generator-forms__wrapper" style="position: relative;">
+                                <qrcg-generator-navigation _ngcontent-ng-c3250675358="" _nghost-ng-c1854713702="">
+                                    <nav _ngcontent-ng-c1854713702="" role="navigation" class="generator-navigation">
+                                        <div _ngcontent-ng-c1854713702="">
+                                            <ul _ngcontent-ng-c1854713702="" aria-label="List of QR-codes" role="tablist" class="generator-navigation__nav-tabs">
+                                               
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items"><div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                    <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="url">
+                                                        <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                            <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-staticurl-outline">
+
+                                                            </i>
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__name">URL</span>
+                                                        </span>
+                                                        <!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Opens the URL after scanning </span>
+                                                        --></div>
+                                                </div>
+                                                <!---->
+
+
+                                                </li>
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="vcard">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-vcard-outline"></i>
+                                                                <span _ngcontent-ng-c1854713702="" class="generator-navigation__name">vCard
+
+                                                                </span>
+                                                            </span><!--
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Saves contact details on the smartphone </span>
+                                                            -->
+                                                        </div>
+                                                    </div>
+                                                    <!---->
+
+
+                                                </li>
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="text">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-text-outline">
+
+                                                                </i>
+                                                                <span _ngcontent-ng-c1854713702="" class="generator-navigation__name">Text</span>
+                                                            </span>
+                                                            <!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Displays a plain text </span>
+                                                            --></div> 
+                                                    </div>
+                                                    <!---->
+
+
+                                                </li>
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="email">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-email-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">E-mail</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Sends an email with a predefined text </span>-->
+                                                        </div>
+                                                    </div>
+                                                                <!---->
+                                                </li>
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="phone">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-phone-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">Phone</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Calls a predefined phone number </span>-->
+                                                        </div>
+                                                    </div>
+                                                                <!---->
+                                                </li>
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="sms">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-sms-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">SMS</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Sends a predefined text message </span>-->
+                                                        </div>
+                                                    </div>
+                                                                <!---->
+                                                </li>
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="wifi">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-wifi-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">Wi-Fi</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Connects to a Wi-Fi network </span>-->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                               <!--same for pdf-->
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="pdf">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-pdf-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">PDF</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Opens a PDF file after scanning </span>-->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!--same for mp3-->
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="mp3">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-mp3-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">MP3</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Plays an MP3 file after scanning </span>-->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!--same for docx--> 
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="docx">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-docx-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">DOCX</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Opens a DOCX file after scanning </span>-->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!--same for images--> 
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="image">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-image-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">Image</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Opens an image file after scanning </span>-->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!--same for 2d-barcodes-->
+                                                <li _ngcontent-ng-c1854713702="" role="tab" class="generator-navigation__nav-items">
+                                                    <div _ngcontent-ng-c1854713702="" ngdefaultcontrol="" class="generator-navigation__nav-link">
+                                                        <div _ngcontent-ng-c1854713702="" class="generator-navigation__nav-link-inner" data-gtm-event="nav-tab" data-gtm-value="2d-barcodes">
+                                                            <span _ngcontent-ng-c1854713702="" class="generator-navigation__title">
+                                                                <i _ngcontent-ng-c1854713702="" class="generator-navigation__icon icon-icon-2d-barcodes-outline"></i><span _ngcontent-ng-c1854713702="" class="generator-navigation__name">2D Barcodes</span></span><!--<span _ngcontent-ng-c1854713702="" class="generator-navigation__tooltip"> Opens a 2D barcode after scanning </span>-->
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!---->
+
+
+                                                <!---->
+                                            </ul>
+                                        </div><!----><!---->
+                                    </nav>
+                                </qrcg-generator-navigation>
+                                <!---->
+                                <!---->
+                                <!---->
+                                <qrcg-generator-toggle _ngcontent-ng-c3250675358="" _nghost-ng-c124610398="">
+                                    <div _ngcontent-ng-c124610398="" class="toggle">
+                                        <div _ngcontent-ng-c124610398="" data-gtm-event="switch-to-dynamic" class="toggle__button">
+                                            <label _ngcontent-ng-c124610398="" class="toggle__switch">
+                                                <span _ngcontent-ng-c124610398="" class="toggle__wrapper">
+                                                    <span _ngcontent-ng-c124610398="" class="toggle__text-off"> OFF </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div _ngcontent-ng-c124610398="" class="toggle__label">
+                                            <label _ngcontent-ng-c124610398="">
+                                                <span _ngcontent-ng-c124610398="" class="toggle__label-name">Scan tracking</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </qrcg-generator-toggle>
+                                <!---->
+                                <!---->
+                                <!---->
+                                <qrcg-generator-fileupload _ngcontent-ng-c3250675358="" _nghost-ng-c374505434=""><!----><!---->
+                                    <div _ngcontent-ng-c374505434="" class="fileupload">
+                                        <div _ngcontent-ng-c374505434="" class="fileupload__upload-link">
+                                            <input _ngcontent-ng-c374505434="" type="file" data-gtm-event="upload-file" onclick="this.value=null;" class="d-none" data-gaconnector-tracked="true">
+                                            <i _ngcontent-ng-c374505434="" class="icon icon-square-upload">
+
+                                            </i>Upload any file 
+                                            <span _ngcontent-ng-c374505434="" class="fileupload__upload-link--text">(.jpg, .pdf, .mp3, .docx, .pptx)</span>
+                                        </div>
+                                    </div><!---->
+                                </qrcg-generator-fileupload>
+                            </div>
+                        </div>
+                        <!----><!---->
+                        <div _ngcontent-ng-c3250675358="" class="col-xl-4 col-lg-4 generator-preview generator-preview--hidden-mobile">
+                            <div _ngcontent-ng-c3250675358="" class="generator-preview__wrapper">
+                                <div _ngcontent-ng-c3250675358="" class="seperator__wrapper">
+                                    <div _ngcontent-ng-c3250675358="" class="seperator__vertical-line"></div>
+                                        <div _ngcontent-ng-c3250675358="" class="seperator__container">
+                                        <i _ngcontent-ng-c3250675358="" class="icon icon-chevron-right seperator__arrow"></i><!----><!----><!---->
+                                        </div>
+                                    <div _ngcontent-ng-c3250675358="" class="seperator__container-inner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div _ngcontent-ng-c3250675358="" class="row">
+                    <div _ngcontent-ng-c3250675358="" class="api-ad">
+                        <div _ngcontent-ng-c3250675358="" class="api-ad__wrapper">
+                            <span _ngcontent-ng-c3250675358="" class="api-ad__tag-new">New</span>
+                            <span _ngcontent-ng-c3250675358="" class="api-ad__text">QR Code creation built into your application</span>
+                            <a _ngcontent-ng-c3250675358="" target="_blank" class="api-ad__link" href="https://www.qr-code-generator.com/qr-code-api/?target=api-ad">Use our API</a>
+                        </div>
+                    </div>
+                </div><!---->
+            </div>
+        </div>
+    </div>
+
+        <div ng-app="qrApp" ng-controller="qrCtrl">
+            <input type="text" ng-model="qrData" placeholder="Enter data to generate QR Code">
+            <div id="qrcode"></div>
+        </div> 
+      </div>
+     
+</body>
+<style>
+[role=tablist] {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+    .generator-navigation{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+    .generator-navigation__nav-items[_ngcontent-ng-c1854713702] {
+        margin-bottom: 10px;
+        cursor: pointer;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .generator-navigation__name{
+        justify-content: space-between;
+    }
+    ul{
+        margin-block-start: 1rem;
+        margin-block-end: 1rem;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+        padding-inline-start: 40px;
+    }
+    li{
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+    .fs-4{
+        color: #0d6efd;
+        font-weight: bold;
+
+    }
+    #qrcode {
+        margin-top: 20px;
+    }
+    body {
+        
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .container {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .scroll-right {
+    display: block;
+    padding-right: 15px;
+    height: 85px;
+    width: 40px;
+    line-height: 56px;
+    color: azure;
+    text-align: center;
+    z-index: -1;
+    }
+    .scroll-right{
+        display: block;
+        padding-left: 15px;
+        height: 85px;
+        width: 40px;
+        line-height: 56px;
+        color: azure;
+        text-align: center;
+        z-index: -1;
+    }   
+    .type-bar{
+        height: 100%;
+        width: 100%;
+    }
+    *,::after,::before {
+        box-sizing: border-box;
+    }
+    .type-bar-inner {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        flex-wrap: nowrap;
+        padding: 0 16px 0 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin-bottom: -16px;
+    }
+
+     
+</style>
 </html>
