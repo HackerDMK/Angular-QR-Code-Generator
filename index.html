@@ -1,61 +1,72 @@
 <!-- create an angular app to generate dynamic QR Code -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Angular QR Code Generator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-   <style>
-    body {
-    background-image:url(/qr.jpg);
-    background-size: cover;
-    font-family: Arial, sans-serif;
-    background-color: red;
-    padding: 20px;
-    color: aliceblue;
-}
+    <style>
+        body {
+            background-image: url(/bg.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: aliceblue;
+            height: 100vh;
+        }
 
-.container {
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 500px;
-    margin: 0 auto;
-}
+        .container {
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
 
-#qrcode {
-    text-align: center;
-}
-   </style>
-   <script>
-      var app = angular.module('qrApp', []);
-      app.controller('qrCtrl', function($scope) {
-          $scope.qrData = '';
-          var qrcode = new QRCode(document.getElementById("qrcode"), {
-              width : 100,
-              height : 100
-          });
-  
-          $scope.$watch('qrData', function(newVal, oldVal) {
-              if (newVal !== oldVal) {
-                  qrcode.makeCode(newVal);
-              }
-          });
-      });
-  </script>
+        #qrcode {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+        }
+    </style>
+    <script>
+        var app = angular.module('qrApp', []);
+        app.controller('qrCtrl', function ($scope) {
+            $scope.qrData = '';
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                width: 120,
+                height: 120,
+                colorDark: "#ecfc58",
+                colorLight: "transparent",
+            });
+
+            $scope.$watch('qrData', function (newVal, oldVal) {
+                if (newVal === '') {
+                    qrcode.makeCode('By: DMK and Edwin');
+                }else if (newVal !== oldVal) {
+                    qrcode.makeCode(newVal);
+                }
+            });
+        });
+    </script>
 </head>
+
 <body>
     <div class="container">
         <h2>Angular QR Code Generator</h2>
@@ -64,7 +75,7 @@ input[type="text"] {
             <input type="text" ng-model="qrData" placeholder="Enter data to generate QR Code">
             <div id="qrcode"></div>
         </div>
-        </div>
+    </div>
 </body>
 
 </html>
