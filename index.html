@@ -1,81 +1,218 @@
 <!-- create an angular app to generate dynamic QR Code -->
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Angular QR Code Generator</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="qrcode.min.js"></script>
     <style>
-        body {
-            background-image: url(/bg.png);
-            background-size: cover;
-            background-repeat: no-repeat;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            color: aliceblue;
-            height: 100vh;
-        }
+      body {
+        background-image: url(/bg.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        color: aliceblue;
+        height: 100vh;
+      }
 
-        .container {
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+      .container {
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
 
-        #qrcode {
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px;
-        }
+      #qrcode {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+      }
+
+      #savebutton {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+        display: none;
+        background-color: transparent;
+        border: none;
+        z-index: 100;
+      }
+
+      #qrcode:hover > img {
+        filter: blur(2px) grayscale(100%);
+      }
+
+      #qrcode:hover #savebutton {
+        display: block;
+      }
+
+      .option-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .option-container div {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin: 2px;
+        border-radius: 10px;
+      }
+
+      .option-container .selected {
+        background-color: blue;
+        color: white;
+      }
+
+      .error-message {
+        color: red;
+        font-size: smaller;
+      }
     </style>
     <script>
-        var app = angular.module('qrApp', []);
-        app.controller('qrCtrl', function ($scope) {
-            $scope.qrData = '';
-            var qrcode = new QRCode(document.getElementById("qrcode"), {
-                width: 120,
-                height: 120,
-                colorDark: "#ecfc58",
-                colorLight: "transparent",
-            });
-
-            $scope.$watch('qrData', function (newVal, oldVal) {
-                if (newVal === '') {
-                    qrcode.makeCode('By: DMK and Edwin');
-                }else if (newVal !== oldVal) {
-                    qrcode.makeCode(newVal);
-                }
-            });
+      var app = angular.module("qrApp", []);
+      app.controller("qrCtrl", function ($scope) {
+        $scope.qrData = "";
+        $scope.qrType = "text";
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+          width: 120,
+          height: 120,
+          colorDark: "#ecfc58",
+          colorLight: "transparent",
         });
+
+        $scope.options = [
+          { label: "Text", value: "text" },
+          { label: "WhatsApp", value: "whatsapp" },
+          { label: "Mail", value: "mail" },
+        ];
+
+        $scope.selectOption = function (value) {
+          $scope.qrType = value;
+        };
+
+        $scope.$watch("qrData", function (newVal, oldVal) {
+          $scope.generateQRCode(newVal);
+        });
+
+        $scope.pattern = /.*/;
+
+        $scope.$watch("qrType", function (newVal, oldVal) {
+          if ($scope.qrType == "whatsapp") {
+            $scope.pattern = /^[\+]?[0-9]*$/;
+          } else if ($scope.qrType == "mail") {
+            $scope.pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          } else {
+            $scope.pattern = /.*/;
+          }
+          $scope.generateQRCode($scope.qrData);
+        });
+
+        $scope.generateQRCode = function (newVal) {
+          if (newVal === "") {
+            qrcode.makeCode("By: Danish and Edwin");
+          } else {
+            if ($scope.qrType === "text") {
+              qrcode.makeCode(newVal);
+            } else if ($scope.qrType === "whatsapp") {
+              $scope.generateWhatsAppLink(newVal);
+            } else if ($scope.qrType === "mail") {
+              $scope.generateMailLink(newVal);
+            }
+          }
+        };
+
+        $scope.generateWhatsAppLink = function (phoneNumber) {
+          var whatsappUrl = "https://wa.me/" + phoneNumber;
+          qrcode.makeCode(whatsappUrl);
+          $scope.qrType = "whatsapp";
+        };
+
+        $scope.generateMailLink = function (email) {
+          var mailUrl = "mailto:" + email;
+          console.log(mailUrl);
+          qrcode.makeCode(mailUrl);
+          $scope.qrType = "mail";
+        };
+
+        $scope.saveAsPNG = function () {
+          var canvas = document.querySelector("#qrcode > canvas");
+          var img = canvas.toDataURL("image/png");
+          var link = document.createElement("a");
+          link.download = "QRCode.png";
+          link.href = img;
+          link.click();
+        };
+      });
     </script>
-</head>
+  </head>
 
-<body>
+  <body ng-app="qrApp" ng-controller="qrCtrl">
     <div class="container">
-        <h2>Angular QR Code Generator</h2>
-        <p>Enter data to generate QR Code</p>
-        <div ng-app="qrApp" ng-controller="qrCtrl">
-            <input type="text" ng-model="qrData" placeholder="Enter data to generate QR Code">
-            <div id="qrcode"></div>
+      <h2>Angular QR Code Generator</h2>
+      <p>Enter data to generate QR Code</p>
+      <form name="qrForm">
+        <span
+          class="error-message"
+          ng-show="qrForm.qrData.$dirty && qrForm.qrData.$invalid"
+        >
+          <span ng-show="qrForm.qrData.$error.required"
+            >Input is required.</span
+          >
+          <span ng-show="qrForm.qrData.$error.pattern && qrType == 'whatsapp'"
+            >Input should be a number for WhatsApp.</span
+          >
+          <span ng-show="qrForm.qrData.$error.pattern && qrType == 'mail'"
+            >Input should be a valid email for Mail.</span
+          >
+        </span>
+        <input
+          type="text"
+          name="qrData"
+          ng-model="qrData"
+          placeholder="Enter data to generate QR Code"
+          ng-pattern="pattern"
+          required
+        />
+      </form>
+      <div class="option-container">
+        <div
+          ng-repeat="option in options"
+          ng-class="{'selected': qrType == option.value}"
+          ng-click="selectOption(option.value)"
+        >
+          {{option.label}}
         </div>
+      </div>
+      <div id="qrcode">
+        <button id="savebutton">
+          <img
+            src="download.png"
+            alt="Download as PNG"
+            ng-click="saveAsPNG()"
+            style="width: 100px"
+          />
+        </button>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
